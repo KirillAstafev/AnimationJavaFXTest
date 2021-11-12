@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +20,20 @@ public class Main extends Application {
         Group group = new Group(button);
         Scene scene = new Scene(group, 600, 600);
 
-        Duration duration = Duration.millis(1000);
-        TranslateTransition transition = new TranslateTransition(duration, button);
-        transition.setByX(200);
-        transition.setByY(100);
-        transition.setAutoReverse(true);
-        transition.setCycleCount(2);
-        transition.play();
+        Duration translateDuration = Duration.millis(1000L);
+        TranslateTransition translateTransition = new TranslateTransition(translateDuration, button);
+        translateTransition.setByX(200);
+        translateTransition.setByY(100);
+
+        Duration scaleDuration = Duration.millis(1500L);
+        ScaleTransition scaleTransition = new ScaleTransition(scaleDuration, button);
+        scaleTransition.setByX(1.5);
+        scaleTransition.setByY(1.5);
+
+        button.setOnMouseEntered(event -> {
+            translateTransition.play();
+            scaleTransition.play();
+        });
 
         primaryStage.setScene(scene);
         primaryStage.show();
